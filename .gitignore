@@ -1,0 +1,10 @@
+*.pyc
+__pycache__/
+*.db
+.env
+.replit
+.upm/
+.config/
+.cache/
+venv/
+.pytest_cache/
