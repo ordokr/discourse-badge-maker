@@ -1,0 +1,10 @@
+en:
+  js:
+    badge_maker:
+      title: "Badge Maker"
+      create: "Create Badge"
+      name: "Badge Name"
+      description: "Description"
+      criteria: "Award Criteria"
+      success: "Badge created successfully"
+      error: "Error creating badge"

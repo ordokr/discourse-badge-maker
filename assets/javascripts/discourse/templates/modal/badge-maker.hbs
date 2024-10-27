@@ -1,0 +1,23 @@
+{{#d-modal-body title="badge_maker.title"}}
+  <form {{action "createBadge" on="submit"}}>
+    <div class="control-group">
+      <label>{{i18n "badge_maker.name"}}</label>
+      {{input value=name placeholder=(i18n "badge_maker.name")}}
+    </div>
+
+    <div class="control-group">
+      <label>{{i18n "badge_maker.description"}}</label>
+      {{textarea value=description placeholder=(i18n "badge_maker.description")}}
+    </div>
+
+    <div class="control-group">
+      <label>{{i18n "badge_maker.criteria"}}</label>
+      {{textarea value=criteria placeholder=(i18n "badge_maker.criteria")}}
+    </div>
+
+    {{d-button
+      class="btn-primary"
+      action=(action "createBadge")
+      label="badge_maker.create"}}
+  </form>
+{{/d-modal-body}}

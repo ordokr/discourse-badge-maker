@@ -1,0 +1,4 @@
+plugins:
+  badge_maker_enabled:
+    default: true
+    client: true

@@ -1,0 +1,6 @@
+en:
+  site_settings:
+    badge_maker_enabled: "Enable the Badge Maker plugin"
+  badge_maker:
+    errors:
+      invalid_criteria: "Invalid badge criteria"
