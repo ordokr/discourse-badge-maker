@@ -1,0 +1,41 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="row">
+    <div class="col-md-8">
+        <h2>Badge Administration</h2>
+        <div class="card">
+            <div class="card-body">
+                <form id="badgeForm">
+                    <div class="mb-3">
+                        <label for="name" class="form-label">Badge Name</label>
+                        <input type="text" class="form-control" id="name" required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="description" class="form-label">Description</label>
+                        <textarea class="form-control" id="description" rows="3"></textarea>
+                    </div>
+                    <div class="mb-3">
+                        <label for="criteria" class="form-label">Award Criteria</label>
+                        <textarea class="form-control" id="criteria" rows="3"></textarea>
+                    </div>
+                    <button type="submit" class="btn btn-primary">Create Badge</button>
+                </form>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-4">
+        <h3>Existing Badges</h3>
+        <div class="badge-list">
+            {% for badge in badges %}
+            <div class="card mb-2">
+                <div class="card-body">
+                    <h5 class="card-title">{{ badge.name }}</h5>
+                    <p class="card-text">{{ badge.description }}</p>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+</div>
+{% endblock %}
