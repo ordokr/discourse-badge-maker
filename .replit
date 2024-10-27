@@ -13,10 +13,10 @@ author = "agent"
 
 [[workflows.workflow.tasks]]
 task = "workflow.run"
-args = "Flask Badge Maker"
+args = "git_push"
 
 [[workflows.workflow]]
-name = "Flask Badge Maker"
+name = "git_push"
 author = "agent"
 
 [workflows.workflow.metadata]
@@ -24,11 +24,45 @@ agentRequireRestartOnSave = false
 
 [[workflows.workflow.tasks]]
 task = "shell.exec"
-args = "python app.py"
+args = """
+
+    # Create repository through GitHub API
+    curl -H \"Authorization: Bearer ${GITHUB_TOKEN}\"          -H \"Accept: application/vnd.github.v3+json\"          https://api.github.com/user/repos          -d '{\"name\":\"discourse-badge-maker\",\"description\":\"A Discourse plugin for creating custom badges\",\"private\":false}' &&     
+    # Configure git
+    git config --global user.email \"replit@example.com\" &&     git config --global user.name \"Replit\" &&     
+    # Initialize git if not already initialized
+    git init &&     
+    # Add all files
+    git add . &&     
+    # Create commit
+    git commit -m \"Initial commit: Add Discourse badge maker plugin\" &&     
+    # Get GitHub username
+    GITHUB_USER=$(curl -s -H \"Authorization: Bearer ${GITHUB_TOKEN}\" https://api.github.com/user | jq -r .login) &&     
+    # Add remote and push
+    git remote add origin \"https://oauth2:${GITHUB_TOKEN}@github.com/${GITHUB_USER}/discourse-badge-maker.git\" ||     git remote set-url origin \"https://oauth2:${GITHUB_TOKEN}@github.com/${GITHUB_USER}/discourse-badge-maker.git\" &&     
+    git push -u origin main
+    """
 waitForPort = 5000
 
 [deployment]
-run = ["sh", "-c", "python app.py"]
+run = ["sh", "-c", """
+
+    # Create repository through GitHub API
+    curl -H \"Authorization: Bearer ${GITHUB_TOKEN}\"          -H \"Accept: application/vnd.github.v3+json\"          https://api.github.com/user/repos          -d '{\"name\":\"discourse-badge-maker\",\"description\":\"A Discourse plugin for creating custom badges\",\"private\":false}' &&     
+    # Configure git
+    git config --global user.email \"replit@example.com\" &&     git config --global user.name \"Replit\" &&     
+    # Initialize git if not already initialized
+    git init &&     
+    # Add all files
+    git add . &&     
+    # Create commit
+    git commit -m \"Initial commit: Add Discourse badge maker plugin\" &&     
+    # Get GitHub username
+    GITHUB_USER=$(curl -s -H \"Authorization: Bearer ${GITHUB_TOKEN}\" https://api.github.com/user | jq -r .login) &&     
+    # Add remote and push
+    git remote add origin \"https://oauth2:${GITHUB_TOKEN}@github.com/${GITHUB_USER}/discourse-badge-maker.git\" ||     git remote set-url origin \"https://oauth2:${GITHUB_TOKEN}@github.com/${GITHUB_USER}/discourse-badge-maker.git\" &&     
+    git push -u origin main
+    """]
 
 [[ports]]
 localPort = 5000
